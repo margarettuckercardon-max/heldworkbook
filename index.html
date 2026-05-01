@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Held | Digital Resources for Postpartum Support</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #F5F0E8;
+    --warm-white: #FAF8F4;
+    --ink: #1C1917;
+    --clay: #B5845A;
+    --clay-light: #D4A97A;
+    --sage: #7A8C7E;
+    --blush: #E8D5C4;
+    --blush-deep: #C9A98A;
+    --muted: #6B6560;
+    --border: rgba(28,25,23,0.12);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--warm-white); color: var(--ink); overflow-x: hidden; }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    padding: 1.4rem 3rem; display: flex; justify-content: space-between; align-items: center;
+    background: rgba(250,248,244,0.9); backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+  .logo { font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; font-weight: 300; letter-spacing: 0.08em; color: var(--ink); text-decoration: none; }
+  .logo span { color: var(--clay); }
+  .nav-links { display: flex; gap: 2.5rem; align-items: center; }
+  nav a { font-size: 0.75rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); text-decoration: none; font-weight: 400; transition: color 0.2s; }
+  nav a:hover { color: var(--ink); }
+  .nav-cta { background: var(--clay); color: var(--cream) !important; padding: 0.6rem 1.4rem; border-radius: 2px; font-size: 0.72rem !important; letter-spacing: 0.14em !important; transition: background 0.2s !important; }
+  .nav-cta:hover { background: var(--ink) !important; }
+
+  /* SHARED */
+  section { padding: 6rem 5rem; }
+  .eyebrow { font-size: 0.68rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--clay); font-weight: 500; margin-bottom: 1.4rem; display: flex; align-items: center; gap: 0.7rem; }
+  .eyebrow::before { content:''; display:block; width:1.5rem; height:1px; background:var(--clay); }
+  h2 { font-family: 'Cormorant Garamond', serif; font-size: clamp(2rem, 3.2vw, 3rem); font-weight: 300; line-height: 1.2; margin-bottom: 1.4rem; }
+  h2 em { font-style: italic; color: var(--clay); }
+  .btn-primary { background: var(--clay); color: var(--cream); padding: 0.95rem 2.2rem; border: none; border-radius: 2px; font-family: 'DM Sans', sans-serif; font-size: 0.75rem; letter-spacing: 0.14em; text-transform: uppercase; cursor: pointer; transition: all 0.22s; font-weight: 500; text-decoration: none; display: inline-block; }
+  .btn-primary:hover { background: var(--ink); transform: translateY(-1px); }
+  .btn-outline { background: transparent; color: var(--ink); padding: 0.95rem 2.2rem; border: 1px solid var(--ink); border-radius: 2px; font-family: 'DM Sans', sans-serif; font-size: 0.75rem; letter-spacing: 0.14em; text-transform: uppercase; cursor: pointer; transition: all 0.22s; font-weight: 500; text-decoration: none; display: inline-block; }
+  .btn-outline:hover { background: var(--ink); color: var(--cream); }
+  .fade-in { opacity: 0; transform: translateY(22px); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .fade-in.visible { opacity: 1; transform: translateY(0); }
+
+  /* HERO */
+  .hero { min-height: 100vh; display: grid; grid-template-columns: 1fr 1fr; padding-top: 80px; }
+  .hero-left { display: flex; flex-direction: column; justify-content: center; padding: 5rem 4rem 5rem 5rem; }
+  h1 { font-family: 'Cormorant Garamond', serif; font-size: clamp(2.6rem, 3.8vw, 4rem); font-weight: 300; line-height: 1.15; margin-bottom: 1.8rem; }
+  h1 em { font-style: italic; color: var(--clay); }
+  .hero-sub { font-size: 1rem; line-height: 1.8; color: var(--muted); max-width: 460px; margin-bottom: 2.8rem; font-weight: 300; }
+  .hero-sub strong { color: var(--ink); font-weight: 500; }
+  .cta-group { display: flex; gap: 1rem; align-items: center; flex-wrap: wrap; }
+  .hero-right { background: var(--blush); position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; }
+  .hero-bg-word { position: absolute; bottom: -1rem; right: -1rem; font-family: 'Cormorant Garamond', serif; font-size: 13vw; font-weight: 300; color: rgba(181,132,90,0.1); line-height: 1; pointer-events: none; letter-spacing: -0.04em; }
+  .hero-card-stack { position: relative; z-index: 2; padding: 3rem; width: 100%; display: flex; flex-direction: column; gap: 1.1rem; }
+  .stat-card { background: rgba(250,248,244,0.92); backdrop-filter: blur(8px); border: 1px solid rgba(181,132,90,0.2); padding: 1.4rem 1.7rem; border-radius: 4px; opacity: 0; transform: translateY(18px); animation: fadeUp 0.6s ease forwards; }
+  .stat-card:nth-child(1) { animation-delay: 0.3s; }
+  .stat-card:nth-child(2) { animation-delay: 0.5s; }
+  .stat-card:nth-child(3) { animation-delay: 0.7s; }
+  @keyframes fadeUp { to { opacity:1; transform:translateY(0); } }
+  .stat-num { font-family: 'Cormorant Garamond', serif; font-size: 2.2rem; font-weight: 300; color: var(--clay); line-height: 1; margin-bottom: 0.35rem; }
+  .stat-label { font-size: 0.78rem; color: var(--muted); font-weight: 300; line-height: 1.5; }
+  .stat-source { font-size: 0.62rem; color: var(--clay); margin-top: 0.4rem; letter-spacing: 0.08em; text-transform: uppercase; }
+
+  /* VIGNETTE */
+  .vignette-section { background: var(--ink); color: var(--cream); display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; }
+  .vignette-section .eyebrow { color: var(--clay-light); }
+  .vignette-section .eyebrow::before { background: var(--clay-light); }
+  .vignette-section h2 { color: var(--cream); }
+  .vignette-section h2 em { color: var(--clay-light); }
+  .three-moms { display: flex; flex-direction: column; gap: 1rem; }
+  .mom-card { background: rgba(245,240,232,0.06); border: 1px solid rgba(245,240,232,0.1); border-radius: 4px; padding: 1.3rem 1.5rem; }
+  .mom-card-label { font-size: 0.62rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--clay-light); margin-bottom: 0.5rem; font-weight: 500; }
+  .mom-card p { font-size: 0.88rem; color: rgba(245,240,232,0.68); line-height: 1.6; font-weight: 300; font-style: italic; }
+  .same-support { font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; font-weight: 300; color: var(--clay-light); text-align: center; padding: 1.2rem 0 0; }
+  .vignette-text { font-size: 0.96rem; line-height: 1.85; color: rgba(245,240,232,0.72); font-weight: 300; }
+  .vignette-text p { margin-bottom: 1.1rem; }
+  .vignette-text p:last-child { margin-bottom: 0; }
+  .vignette-text strong { color: var(--cream); font-weight: 500; }
+  .vignette-callout { border-left: 2px solid var(--clay); padding: 1.3rem 1.6rem; background: rgba(181,132,90,0.09); border-radius: 0 4px 4px 0; margin: 1.6rem 0; }
+  .vignette-callout p { font-family: 'Cormorant Garamond', serif; font-size: 1.25rem; font-style: italic; font-weight: 300; line-height: 1.6; color: var(--cream); margin: 0; }
+
+  /* THREE SKILLS */
+  .skills-section { background: var(--cream); }
+  .skills-intro { font-size: 1rem; line-height: 1.8; color: var(--muted); font-weight: 300; max-width: 580px; margin-bottom: 3.5rem; }
+  .skills-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+  .skill-card { background: var(--warm-white); border: 1px solid var(--border); border-radius: 4px; padding: 2.2rem 2rem; transition: border-color 0.2s, transform 0.2s; }
+  .skill-card:hover { border-color: var(--clay); transform: translateY(-2px); }
+  .skill-num { font-family: 'Cormorant Garamond', serif; font-size: 3rem; font-weight: 300; color: var(--blush-deep); line-height: 1; margin-bottom: 1rem; }
+  .skill-card h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; font-weight: 400; color: var(--ink); margin-bottom: 0.8rem; }
+  .skill-card p { font-size: 0.87rem; line-height: 1.7; color: var(--muted); font-weight: 300; }
+
+  /* ABOUT */
+  .about-section { background: var(--warm-white); display: grid; grid-template-columns: 1fr 1.65fr; gap: 5rem; align-items: start; }
+  .about-left { position: sticky; top: 7rem; }
+  .about-portrait { width: 100%; aspect-ratio: 3/4; background: var(--blush); border-radius: 4px; overflow: hidden; display: flex; align-items: center; justify-content: center; position: relative; }
+  .about-portrait-inner { width:100%; height:100%; background: linear-gradient(135deg, var(--blush) 0%, var(--blush-deep) 100%); display:flex; align-items:center; justify-content:center; }
+  .about-portrait-monogram { font-family:'Cormorant Garamond',serif; font-size:6rem; font-weight:300; color:rgba(181,132,90,0.3); }
+  .about-portrait-caption { position:absolute; bottom:0; left:0; right:0; padding:1.2rem; background:linear-gradient(to top, rgba(28,25,23,0.35), transparent); }
+  .about-portrait-caption p { font-size:0.68rem; color:rgba(245,240,232,0.6); letter-spacing:0.1em; text-transform:uppercase; }
+  .about-credentials { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.2rem; }
+  .credential-tag { font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; background: var(--blush); color: var(--clay); padding: 0.3rem 0.7rem; border-radius: 2px; font-weight: 500; }
+  .about-name { font-family: 'Cormorant Garamond', serif; font-size: 2.2rem; font-weight: 300; color: var(--ink); margin-bottom: 0.25rem; line-height: 1.1; }
+  .about-title { font-size: 0.75rem; color: var(--clay); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 2rem; font-weight: 500; }
+  .about-body { font-size: 0.97rem; line-height: 1.85; color: var(--muted); font-weight: 300; }
+  .about-body p { margin-bottom: 1.2rem; }
+  .about-body p:last-child { margin-bottom: 0; }
+  .about-body strong { color: var(--ink); font-weight: 500; }
+  .about-body em { font-style: italic; color: var(--clay); }
+
+  /* RESOURCES */
+  .resources-section { background: var(--cream); }
+  .resources-intro { font-size: 1rem; line-height: 1.8; color: var(--muted); font-weight: 300; max-width: 580px; margin-bottom: 3.5rem; }
+  .resources-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.8rem; align-items: start; }
+  .resource-card { background: var(--warm-white); border: 1px solid var(--border); border-radius: 4px; overflow: hidden; transition: box-shadow 0.2s, transform 0.2s; }
+  .resource-card:hover { box-shadow: 0 8px 32px rgba(28,25,23,0.08); transform: translateY(-3px); }
+  .resource-card.featured { border-color: var(--clay); }
+  .resource-cover { height: 200px; display: flex; align-items: flex-end; position: relative; overflow: hidden; }
+  .resource-cover-bg-word { position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); font-family:'Cormorant Garamond',serif; font-size:5.5rem; font-weight:300; color:rgba(181,132,90,0.18); letter-spacing:-0.04em; pointer-events:none; }
+  .resource-cover-badge { position: absolute; top: 1rem; right: 1rem; background: var(--clay); color: var(--cream); font-size: 0.6rem; letter-spacing: 0.12em; text-transform: uppercase; padding: 0.25rem 0.6rem; border-radius: 2px; font-weight: 500; }
+  .resource-cover-info { position: relative; z-index: 1; padding: 1.2rem; width: 100%; }
+  .resource-cover-title { font-family: 'Cormorant Garamond', serif; font-size: 1.25rem; font-weight: 400; color: var(--ink); line-height: 1.25; }
+  .resource-cover-sub { font-family: 'DM Sans', sans-serif; font-size: 0.68rem; color: var(--muted); font-weight: 300; margin-top: 0.2rem; }
+  .resource-body { padding: 1.6rem 1.8rem 1.8rem; }
+  .resource-for { font-size: 0.62rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--clay); font-weight: 500; margin-bottom: 0.7rem; }
+  .resource-desc { font-size: 0.85rem; line-height: 1.7; color: var(--muted); font-weight: 300; margin-bottom: 1.3rem; }
+  .resource-includes { list-style: none; margin-bottom: 1.6rem; display: flex; flex-direction: column; gap: 0.4rem; }
+  .resource-includes li { font-size: 0.78rem; color: var(--muted); font-weight: 300; display: flex; gap: 0.6rem; align-items: baseline; }
+  .resource-includes li::before { content:'→'; color:var(--clay); font-size:0.7rem; flex-shrink:0; }
+  .resource-price-row { display: flex; justify-content: space-between; align-items: center; }
+  .resource-price { font-family: 'Cormorant Garamond', serif; font-size: 1.9rem; font-weight: 300; color: var(--clay); }
+  .resource-btn { background: var(--ink); color: var(--cream); padding: 0.6rem 1.3rem; border-radius: 2px; border: none; font-family: 'DM Sans', sans-serif; font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 500; cursor: pointer; transition: background 0.2s; text-decoration: none; display: inline-block; }
+  .resource-btn:hover { background: var(--clay); }
+  .resource-card.featured .resource-btn { background: var(--clay); }
+  .resource-card.featured .resource-btn:hover { background: var(--ink); }
+  .coming-soon-card { background: var(--cream); border: 1px dashed var(--border); border-radius: 4px; padding: 2.5rem 2rem; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; min-height: 360px; gap: 1rem; }
+  .coming-soon-card h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.2rem; font-weight: 300; color: var(--muted); }
+  .coming-soon-card p { font-size: 0.82rem; color: var(--muted); font-weight: 300; line-height: 1.6; opacity: 0.75; }
+  .notify-form { display: flex; gap: 0.5rem; margin-top: 0.5rem; width: 100%; }
+  .notify-form input { flex: 1; padding: 0.55rem 0.9rem; border: 1px solid var(--border); border-radius: 2px; font-family: 'DM Sans', sans-serif; font-size: 0.78rem; color: var(--ink); background: var(--warm-white); outline: none; }
+  .notify-form input:focus { border-color: var(--clay); }
+  .notify-form button { background: var(--clay); color: var(--cream); border: none; padding: 0.55rem 1rem; border-radius: 2px; font-size: 0.72rem; letter-spacing: 0.1em; cursor: pointer; font-family: 'DM Sans', sans-serif; font-weight: 500; white-space: nowrap; }
+
+  /* WHO */
+  .who-section { background: var(--ink); color: var(--cream); display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; }
+  .who-section .eyebrow { color: var(--clay-light); }
+  .who-section .eyebrow::before { background: var(--clay-light); }
+  .who-section h2 { color: var(--cream); }
+  .who-section h2 em { color: var(--clay-light); }
+  .who-intro { font-size: 0.95rem; line-height: 1.8; color: rgba(245,240,232,0.65); font-weight: 300; margin-bottom: 1.8rem; }
+  .who-list { list-style: none; display: flex; flex-direction: column; gap: 0.9rem; }
+  .who-list li { display: flex; gap: 1rem; align-items: flex-start; font-size: 0.9rem; color: rgba(245,240,232,0.72); font-weight: 300; line-height: 1.6; }
+  .who-list li::before { content:'—'; color: var(--clay-light); flex-shrink: 0; margin-top: 0.05em; }
+
+  /* TESTIMONIAL */
+  .testimonial-section { background: var(--sage); text-align: center; padding: 6rem 8rem; }
+  .testimonial-section blockquote { font-family: 'Cormorant Garamond', serif; font-size: clamp(1.4rem, 2.2vw, 2rem); font-weight: 300; font-style: italic; line-height: 1.65; color: var(--cream); margin-bottom: 1.8rem; }
+  .testimonial-section cite { font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(245,240,232,0.55); font-style: normal; }
+
+  /* FINAL CTA */
+  .final-cta { background: var(--ink); text-align: center; padding: 8rem 4rem; position: relative; overflow: hidden; }
+  .final-cta-glow { position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 110%, rgba(181,132,90,0.13) 0%, transparent 65%); pointer-events: none; }
+  .final-cta h2 { color: var(--cream); position: relative; z-index: 1; margin-bottom: 1.2rem; }
+  .final-cta h2 em { color: var(--clay-light); }
+  .final-cta p { font-size: 1rem; color: rgba(245,240,232,0.58); max-width: 500px; margin: 0 auto 3rem; line-height: 1.8; font-weight: 300; position: relative; z-index: 1; }
+  .final-cta .btn-primary { position: relative; z-index: 1; }
+
+  /* FOOTER */
+  footer { background: var(--ink); border-top: 1px solid rgba(245,240,232,0.07); padding: 2.2rem 5rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+  footer .logo { color: var(--cream); font-size: 1.2rem; }
+  footer p { font-size: 0.73rem; color: rgba(245,240,232,0.28); font-weight: 300; }
+
+  /* RESPONSIVE */
+  @media (max-width: 900px) {
+    .hero, .vignette-section, .about-section, .who-section { grid-template-columns: 1fr; }
+    .hero-right { min-height: 45vh; }
+    .about-left { position: static; }
+    .skills-grid, .resources-grid { grid-template-columns: 1fr; }
+    section { padding: 4.5rem 1.8rem; }
+    nav { padding: 1.2rem 1.5rem; }
+    .hero-left { padding: 4rem 1.8rem; }
+    .testimonial-section { padding: 4.5rem 2rem; }
+    footer { flex-direction: column; text-align: center; }
+    .nav-links { gap: 1.5rem; }
+    .vignette-section, .who-section { gap: 3rem; }
+    .about-section { gap: 3rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="logo">held<span>.</span></a>
+  <div class="nav-links">
+    <a href="#research">The Research</a>
+    <a href="#about">About</a>
+    <a href="#resources">Resources</a>
+    <a href="#resources" class="nav-cta">Shop Resources</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <div class="eyebrow">Maternal mental health resources</div>
+    <h1>Support only works<br>if you know how<br>to <em>receive</em> it.</h1>
+    <p class="hero-sub">
+      Research consistently shows that <strong>perceived support</strong> — not just what's available — has the greatest impact on maternal wellbeing. These digital resources help moms, partners, and families build the skills to make support actually work.
+    </p>
+    <div class="cta-group">
+      <a href="#resources" class="btn-primary">Browse Resources</a>
+      <a href="#research" class="btn-outline">The Research</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-bg-word">held</div>
+    <div class="hero-card-stack">
+      <div class="stat-card">
+        <div class="stat-num">1 in 5</div>
+        <div class="stat-label">women experience postpartum depression that persists beyond the first year</div>
+        <div class="stat-source">Longitudinal research · PMC</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">↑ Impact</div>
+        <div class="stat-label">Perceived support has a greater effect on maternal wellbeing than actual support received</div>
+        <div class="stat-source">PLOS One · 2022 National Panel Study</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">3 skills</div>
+        <div class="stat-label">Know what you need. Ask for it clearly. Receive it without guilt or shame.</div>
+        <div class="stat-source">The framework behind every resource here</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VIGNETTE + RESEARCH -->
+<section class="vignette-section" id="research">
+  <div>
+    <div class="eyebrow">Why this matters</div>
+    <h2>Same support.<br><em>Completely different</em><br>experience.</h2>
+    <div class="three-moms">
+      <div class="mom-card">
+        <div class="mom-card-label">Mom one</div>
+        <p>"The mother-in-law took the baby and I finally exhaled. I ate breakfast with two hands."</p>
+      </div>
+      <div class="mom-card">
+        <div class="mom-card-label">Mom two</div>
+        <p>"She took the baby — but I wanted to hold him. I needed someone to handle the house instead."</p>
+      </div>
+      <div class="mom-card">
+        <div class="mom-card-label">Mom three</div>
+        <p>"It was both at once. I felt relieved and guilty. I didn't know what I needed or how to say it."</p>
+      </div>
+      <div class="same-support">Same support. Three different experiences.</div>
+    </div>
+  </div>
+  <div class="vignette-text">
+    <p>A new mother's in-laws stop by. The mother-in-law offers to hold the baby so mom can eat breakfast with two hands. For one mom, this feels like relief. For another, it feels like loss — she just wants to hold her baby while someone else takes care of the house. For a third, it's both at once.</p>
+    <p>What makes the difference isn't just what's offered. It's a mother's ability to <strong>know what she needs, communicate it, and receive it.</strong></p>
+    <div class="vignette-callout">
+      <p>Social support is only useful if we know how to use it.</p>
+    </div>
+    <p>Research consistently shows that perceived social support — not just the support that's available — has the greatest impact on maternal wellbeing. A woman can be surrounded by willing helpers and still feel completely alone inside all of it.</p>
+    <p>This isn't a failure of her support network. It's a gap in a specific set of skills that most women — especially <strong>capable, self-reliant, "fine on their own" women</strong> — were never taught and never needed to develop. Until now.</p>
+    <p>These resources are designed to close that gap: for moms, for partners, and for anyone involved in supporting them — so that support can be offered, communicated, and received in ways that actually help.</p>
+  </div>
+</section>
+
+<!-- THREE SKILLS -->
+<section class="skills-section fade-in">
+  <div class="eyebrow">The framework</div>
+  <h2>Three skills that change<br>the postpartum experience.</h2>
+  <p class="skills-intro">These aren't personality traits you either have or don't. They're learnable — and the resources on this site are designed to build them before and during the postpartum period.</p>
+  <div class="skills-grid">
+    <div class="skill-card">
+      <div class="skill-num">01</div>
+      <h3>Know and trust what you need</h3>
+      <p>Many women — particularly those who are high-achieving and self-reliant — struggle to identify their own needs in real time. The first skill is developing the internal awareness to know what would actually help, rather than defaulting to "I'm fine."</p>
+    </div>
+    <div class="skill-card">
+      <div class="skill-num">02</div>
+      <h3>Ask for support clearly and confidently</h3>
+      <p>"Let me know if you need anything" is well-intentioned and hard to use. The second skill is making specific, direct asks — without excessive hedging, pre-apologizing, or immediately offering to reciprocate.</p>
+    </div>
+    <div class="skill-card">
+      <div class="skill-num">03</div>
+      <h3>Receive help without guilt, shame, or distress</h3>
+      <p>Even when support is offered and accepted, many women can't let it land. The third skill is the capacity to actually feel held — to internalize care rather than manage it from a careful distance.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT MARGARET -->
+<section class="about-section fade-in" id="about">
+  <div class="about-left">
+    <div class="about-portrait">
+      <div class="about-portrait-inner">
+        <div class="about-portrait-monogram">MC</div>
+      </div>
+      <div class="about-portrait-caption">
+        <p>Replace with photo of Margaret</p>
+      </div>
+    </div>
+    <div class="about-credentials">
+      <span class="credential-tag">LPC</span>
+      <span class="credential-tag">PMH-C</span>
+      <span class="credential-tag">Maternal Mental Health</span>
+      <span class="credential-tag">Mom of Two</span>
+    </div>
+  </div>
+  <div class="about-right">
+    <div class="eyebrow">About</div>
+    <div class="about-name">Margaret Cardon</div>
+    <div class="about-title">Licensed Professional Counselor · Perinatal Mental Health Certified</div>
+    <div class="about-body">
+      <p>I specialize in maternal mental health — and I'm a mom of two. Looking back on my own postpartum experiences, I can see clearly that <strong>I didn't know how to receive help.</strong> Even well-intended support sometimes left me feeling worse, not better.</p>
+      <p>This is especially true for women who are used to being capable, self-reliant, and <em>"fine on their own."</em> Women who have built their entire identity around not needing things. Women who, when someone offers to help, immediately calculate what it will cost them to say yes.</p>
+      <p>In my clinical work, I see this pattern constantly. The resources aren't the problem. The skills are. Women know, in theory, that they should accept help. What no one has ever taught them is how.</p>
+      <p>I help women build three core skills: <strong>knowing and trusting what they need, asking for support clearly and confidently,</strong> and <strong>receiving help without guilt, shame, or distress.</strong></p>
+      <p>I created these digital resources to help women develop these skills before and during the postpartum period. They're designed not just for moms, but also <strong>for partners, family members, and anyone involved in supporting them</strong> — so support can be offered, communicated, and received in ways that actually help.</p>
+    </div>
+  </div>
+</section>
+
+<!-- RESOURCES / SHOP -->
+<section class="resources-section fade-in" id="resources">
+  <div class="eyebrow">Digital resources</div>
+  <h2>Workbooks that build skills,<br>not just <em>awareness</em>.</h2>
+  <p class="resources-intro">Downloadable PDF workbooks designed for use during pregnancy and the postpartum period. Fill them digitally, print them, or work through them together. Each one is grounded in research and built around real practice — not just information.</p>
+
+  <div class="resources-grid">
+
+    <!-- MAIN WORKBOOK -->
+    <div class="resource-card featured">
+      <div class="resource-cover" style="background: var(--blush);">
+        <div class="resource-cover-bg-word">held</div>
+        <div class="resource-cover-badge">Complete workbook</div>
+        <div class="resource-cover-info">
+          <div class="resource-cover-title">The Held Workbook</div>
+          <div class="resource-cover-sub">A prenatal workbook for women who do everything alone</div>
+        </div>
+      </div>
+      <div class="resource-body">
+        <div class="resource-for">For moms · Best started in the 2nd or 3rd trimester</div>
+        <p class="resource-desc">A six-module guided workbook to help you identify your needs, map your support network, practice vulnerability before the stakes are high, design a concrete support plan, and prepare your relationship for what's coming.</p>
+        <ul class="resource-includes">
+          <li>Receiving blocks self-assessment</li>
+          <li>Support network mapping canvas</li>
+          <li>The disclosure ladder + weekly practice log</li>
+          <li>Postpartum support architecture template</li>
+          <li>Partnership audit (for you and your partner)</li>
+          <li>Postpartum toolkit + emergency reference card</li>
+        </ul>
+        <div class="resource-price-row">
+          <div class="resource-price">$37</div>
+          <a href="#" class="resource-btn">Get the Workbook</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- PARTNER GUIDE -->
+    <div class="resource-card">
+      <div class="resource-cover" style="background: linear-gradient(135deg, #ddd0c0, #c0a080);">
+        <div class="resource-cover-bg-word" style="color:rgba(28,25,23,0.1);">you</div>
+        <div class="resource-cover-info">
+          <div class="resource-cover-title">How to Hold Her</div>
+          <div class="resource-cover-sub">A partner's guide to postpartum support</div>
+        </div>
+      </div>
+      <div class="resource-body">
+        <div class="resource-for">For partners · Family members · Anyone supporting a new mom</div>
+        <p class="resource-desc">Most partners want to help. What they often lack isn't love — it's the specific knowledge of what helps and what doesn't, especially with women who resist asking. This guide closes that gap.</p>
+        <ul class="resource-includes">
+          <li>Why she resists help — and why it's not about you</li>
+          <li>Helping vs. witnessing, and why the difference matters</li>
+          <li>How to notice she's struggling when she says she's fine</li>
+          <li>Check-in questions that open doors instead of closing them</li>
+          <li>Scripts for conversations that feel impossible to start</li>
+        </ul>
+        <div class="resource-price-row">
+          <div class="resource-price">$17</div>
+          <a href="#" class="resource-btn">Get the Guide</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- COMING SOON -->
+    <div class="coming-soon-card">
+      <div style="font-size:2rem; opacity:0.25;">✦</div>
+      <h3>More resources in development</h3>
+      <p>A standalone support plan template, a postpartum quick-reference card deck, and a family member guide are coming soon.</p>
+      <div class="notify-form">
+        <input type="email" placeholder="your@email.com">
+        <button type="button">Notify me</button>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- WHO IT'S FOR -->
+<section class="who-section fade-in">
+  <div>
+    <div class="eyebrow">Who these resources are for</div>
+    <h2>If you recognize<br>yourself <em>here</em>,<br>this is for you.</h2>
+  </div>
+  <div>
+    <p class="who-intro">These resources were built with a specific woman in mind — though they're designed to be useful to everyone involved in a new mother's world.</p>
+    <ul class="who-list">
+      <li>You are capable and competent, and you've been rewarded your whole life for handling things yourself</li>
+      <li>The idea of really needing help — showing it, asking for it — feels uncomfortable in a way you'd never say out loud</li>
+      <li>You've said "I'm fine" so many times it's become automatic, even when it isn't true</li>
+      <li>You worry about being a burden, or you feel indebted when someone helps you</li>
+      <li>You have support available, but you're not sure you actually know how to use it</li>
+      <li>You're a partner, family member, or friend who wants to help — and wants to offer it in a way that actually lands</li>
+    </ul>
+  </div>
+</section>
+
+<!-- TESTIMONIAL -->
+<section class="testimonial-section">
+  <blockquote>
+    "I had a meal train, a mother-in-law flying in, and a partner who wanted to do anything I asked.
+    I was completely alone inside all of it. No one prepared me for the part where
+    I didn't know how to let any of it in."
+  </blockquote>
+  <cite>— The experience these resources were built to address</cite>
+</section>
+
+<!-- FINAL CTA -->
+<section class="final-cta">
+  <div class="final-cta-glow"></div>
+  <h2>The support is there.<br>Let's help you <em>receive</em> it.</h2>
+  <p>Downloadable workbooks designed by a perinatal mental health specialist — for moms, partners, and the people who love them.</p>
+  <a href="#resources" class="btn-primary">Browse All Resources</a>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <a href="#" class="logo">held<span>.</span></a>
+  <p>© 2025 Margaret Cardon, LPC, PMH-C · Held Digital Resources</p>
+  <p>Not a substitute for professional mental health support.</p>
+</footer>
+
+<script>
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.08 });
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
